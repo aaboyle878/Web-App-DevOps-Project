@@ -57,7 +57,7 @@ To run the application, you simply need to run the `app.py` script in this repos
 
 ## Contributors 
 
-- [Maya Iuga]([https://github.com/yourusername](https://github.com/maya-a-iuga))
+- [Maya Iuga]((https://github.com/maya-a-iuga))
 
 - [Aaron Boyle](https://github.com/aaboyle878)
 
