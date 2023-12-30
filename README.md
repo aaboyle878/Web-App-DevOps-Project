@@ -10,6 +10,8 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 - [Contributors](#contributors)
 - [License](#license)
 - [Cloud Resource Provisioning](#cloud-resource-provisioning)
+- [Kubernetes Manifest](#kubernetes-manifest)
+- [Kubernetes Deployment](#Kubernetes-deployment)
 
 ## Features
 
@@ -86,10 +88,33 @@ As part of the cloud set-up for the application it has been containerised and wi
 
 - **Service Principal** This is the account used by the terraform files to authenticate and interact with Azure resources, in short it is a service account for terraform. Please note this is defined as part of the AKS cluster along side the node pool
 
-- **Node Pool** This will define the number of nodes we wish to have within the cluster and where we can set the conditions for auto-scaling and the max and min number of nodes we wish to have running at any given time. For our app we have chosen the Standard_DS2_v2 vitrual machine as the host for our application with a default starting count of one. it is also woth mentioning that this is defined as part of the AKS cluster along side the service principal 
+- **Node Pool** This will define the number of nodes we wish to have within the cluster and where we can set the conditions for auto-scaling and the max and min number of nodes we wish to have running at any given time. For our app we have chosen the `Standard_DS2_v2`` vitrual machine as the host for our application with a default starting count of one. it is also woth mentioning that this is defined as part of the AKS cluster along side the service principal 
 
 - **AKS(Azure Kubernetes Service) Cluster** This is the kubernetes cluster we will be defining for opur app to run on and is made up of multiple components as mentioned above, potentially the most important factor to define within this block would be the version of kubernetes we wish to run as different versions will function differently and may not support more advanced features.
 
 ### AKS Terraform Resources
 
 In the parent directory for the terrform modular IaC files we have a main.tf as this is in the parent folder it will tie the networking and aks cluster modules together via their outputs and also by providing input paramteres for the variables we have specified in the modules variables.tf files. We will also specify the terraform provider in this main.tf file and in the case of our app as we are using the azure cloud this will in turn mean we are using the Azure provider. We will also specify the service princial credentials that terrafrom will use for our resource provisioning in this section.
+
+## Kubernetes Manifest
+
+As out app will be hosted using AKS with the resources mentioned above which have been provisioned using terraform we now had to create the manifest/config/YAML file for the cluster. This is to specify that we want to run our containerised app on the pods within the cluster and what ports we wish to expose for internal traffic management, the design of the application-manifest file is the following:
+
+- **Service ClusterIP** 
+We created the ClusterIP service as part of the deployment to determine how we would handle internal traffic within the cluster and so we have used TCP with a mapping from port 5000 (this will be port users access the application via as it is the port exposed by the container) to port 80. To ensure that the service links to the correct deployment metadata labels have been added.
+
+- **Deployment**
+For the deployment we have specified the image we wish to run within the clusters pods along side the number of replicas we which to have to ensure availablitiy of the application. In the deployment manifest we have also specified which container ports we wish to be exposed in this case it is port 5000 along with how we wish to handle updating the containers within the cluster should the need arise, for this we have chose to replace the continers one at time ensuring that there is alway one pod running within the cluster so the app is always available for users.
+
+## Kubernetes Deployment
+
+### Applying the manifest file
+For deploying the manifest file to the cluster a similar approach was taken to that of terraform in which a dry run was initiated to ensure the changes being made were expected using the `kubectl diff -f application-manifest.yaml` as this compares the current kubernetes configuration within the cluster against the newly proposed manifest file similar to `terraform plan`. When all was reviewed and the service and deployment looked good the manifest was applied using `kuberctl apply -f application-manifest.yaml` and for here the service and deployment were created.
+
+### Checking the deployment
+After apllying the manifest file there were a number of cammands used to check the deployment had been successful and ultimately validate the app was working by connecting to the container via port forwarding from the local machine. Some of the command used to check the deployment were:
+- `kubectl get deployments`- this command returns deployment name, number of pods ready/avaliable out of those specified in the yaml, number of pods using the latest manifest file, number of pods availbe to serve incoming requests, and finally how long the pods have been running
+- `kubectl get pods`- shows the pod name, how many containers are running on the on the pod in a ready state, the status of the pod i.e if it is running or there have been any issues, number of restarts, and pod age
+- `kubectl get pods --show-labels`- this shows the same as the above with the addition of the labels column 
+- `kubectl get services`- this returns the serive name, type, internal ClusterIP, external/public facing IP, port and protocol mapping, and age
+- `kubectl port-forward <pod-name> 5000:5000`- this command will allow us to connect to the named container via localhost or `127.0.0.1` on port 5000 i.e `127.0.0.1:5000`
