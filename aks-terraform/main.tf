@@ -14,3 +14,12 @@ provider "azurerm" {
   subscription_id = "0e34cec9-855a-494c-972a-034cbc92b040"
   tenant_id       = "47d4542c-f112-47f4-92c7-a838d8a5e8ef"
 }
+
+module "networking" {
+  source = "./networking-module"
+
+  # Input variables for the networking module
+  resource_group_name = "networking-resource-group"
+  location           = "UK South"
+  vnet_address_space = ["10.0.0.0/16"]
+}
