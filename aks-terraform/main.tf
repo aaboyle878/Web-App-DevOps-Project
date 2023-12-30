@@ -23,3 +23,22 @@ module "networking" {
   location           = "UK South"
   vnet_address_space = ["10.0.0.0/16"]
 }
+
+module "aks_cluster" {
+  source = "./aks-cluster-module"
+
+  # Input variables for the AKS cluster module
+  aks_cluster_name           = "terraform-aks-cluster"
+  cluster_location           = "UK South"
+  dns_prefix                 = "aarons-project"
+  kubernetes_version         = "1.26.6"  
+  service_principal_client_id = "ec344146-68dc-4625-9869-bae7cd165838"
+  service_principal_client_secret = "ebo8Q~BMVIU_e_VOqiZ3mXWVmNBsTedA6GJAvaO3"
+
+  # Input variables referencing outputs from the networking module
+  resource_group_name         = module.networking.resource_group_name
+  vnet_id                     = module.networking.vnet_id
+  control_plane_subnet_id     = module.networking.control_plane_subnet_id
+  worker_node_subnet_id       = module.networking.worker_node_subnet_id
+  aks_nsg_id                  = module.networking.aks_nsg_id
+}
