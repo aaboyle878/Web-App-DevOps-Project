@@ -70,6 +70,8 @@ This project is licensed under the MIT License. For more details, refer to the [
 
 As part of the cloud set-up for the application it has been containerised and will be run using Azure Cloud as previous mentioned. For the app to accessabilbe on the cloud a number of networking resources had to be provisioned these are: 
 
+### Networking Resources
+
 - **Resource Groups** Everying we provision on the cloub will need to be a member of a resource group from a billing perspective as they will all be linked to a subscription via the resource group, not only this but as a resoure group can host different kinds of resource together it keeps everything bundled together 
 
 - **Virtual Network (Vnet)** We set up a Vnet to allow for a more secure and selective approach to traffic manangement as we can decide what aspects of the app will be serviced by what Ip's within the Vnet 
@@ -79,3 +81,11 @@ As part of the cloud set-up for the application it has been containerised and wi
 - **Security Groups** We have set up a security group which will essential fuction as the firewall and be the barrier between the outside world and our resources within the aks cluster, we set up this firewall using network secruity group rules for the resource group which allows a granular way to control the ingress and egress within the cluster
 
 - **Security Group Rules** We have set up two network security group rules for the cluster to control the flow of external traffic and the hosts whioch can access the cluster via ssh
+
+### Cluster Resources 
+
+- **Service Principal** This is the account used by the terraform files to authenticate and interact with Azure resources, in short it is a service account for terraform. Please note this is defined as part of the AKS cluster along side the node pool
+
+- **Node Pool** This will define the number of nodes we wish to have within the cluster and where we can set the conditions for auto-scaling and the max and min number of nodes we wish to have running at any given time. For our app we have chosen the Standard_DS2_v2 vitrual machine as the host for our application with a default starting count of one. it is also woth mentioning that this is defined as part of the AKS cluster along side the service principal 
+
+- **AKS(Azure Kubernetes Service) Cluster** This is the kubernetes cluster we will be defining for opur app to run on and is made up of multiple components as mentioned above, potentially the most important factor to define within this block would be the version of kubernetes we wish to run as different versions will function differently and may not support more advanced features.
