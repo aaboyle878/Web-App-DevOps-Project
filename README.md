@@ -9,6 +9,7 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 - [Technology Stack](#technology-stack)
 - [Contributors](#contributors)
 - [License](#license)
+- [Cloud Resource Provisioning](#cloud-resource-provisioning)
 
 ## Features
 
