@@ -67,7 +67,7 @@ This project is licensed under the MIT License. For more details, refer to the [
 
 ## Cloud Resource Provisioning
 
-As part of the cloud set-up for the application it has been containerised and will be run using Azure Cloud as previous mentioned. For the app to accessabilbe on the cloud a number of networking resources had to be provisioned these are: \
+As part of the cloud set-up for the application it has been containerised and will be run using Azure Cloud as previous mentioned. For the app to accessabilbe on the cloud a number of networking resources had to be provisioned these are: 
 
 - **Resource Groups** Everying we provision on the cloub will need to be a member of a resource group from a billing perspective as they will all be linked to a subscription via the resource group, not only this but as a resoure group can host different kinds of resource together it keeps everything bundled together 
 
