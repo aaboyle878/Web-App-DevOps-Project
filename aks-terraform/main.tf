@@ -36,7 +36,7 @@ module "aks_cluster" {
   service_principal_client_secret = "ebo8Q~BMVIU_e_VOqiZ3mXWVmNBsTedA6GJAvaO3"
 
   # Input variables referencing outputs from the networking module
-  resource_group_name         = module.networking.resource_group_name
+  resource_group_name         = module.networking.networking_resource_group_name
   vnet_id                     = module.networking.vnet_id
   control_plane_subnet_id     = module.networking.control_plane_subnet_id
   worker_node_subnet_id       = module.networking.worker_node_subnet_id
