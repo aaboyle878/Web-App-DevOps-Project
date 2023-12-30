@@ -53,10 +53,28 @@ To run the application, you simply need to run the `app.py` script in this repos
 
 - **Database:** The application employs an Azure SQL Database as its database system to store order-related data.
 
+- **Cloud Provider:** The application will hosted on Azure cloud and make use of the Azure Kuberenetes Service (AKS) 
+
 ## Contributors 
+
+- [Maya Iuga]([https://github.com/yourusername](https://github.com/maya-a-iuga))
 
 - [Aaron Boyle](https://github.com/aaboyle878)
 
 ## License
 
 This project is licensed under the MIT License. For more details, refer to the [LICENSE](LICENSE) file.
+
+## Cloud Resource Provisioning
+
+As part of the cloud set-up for the application it has been containerised and will be run using Azure Cloud as previous mentioned. For the app to accessabilbe on the cloud a number of networking resources had to be provisioned these are: \
+
+- **Resource Groups** Everying we provision on the cloub will need to be a member of a resource group from a billing perspective as they will all be linked to a subscription via the resource group, not only this but as a resoure group can host different kinds of resource together it keeps everything bundled together 
+
+- **Virtual Network (Vnet)** We set up a Vnet to allow for a more secure and selective approach to traffic manangement as we can decide what aspects of the app will be serviced by what Ip's within the Vnet 
+
+- **Subnets** Simialrly to Vnets we create a subnet within a Vnet to serve a particualr function in the case of our app we have two subnets set up one for the control plane nodes and another for the worker node and they are segrated from each other due to security and routing reasons
+
+- **Security Groups** We have set up a security group which will essential fuction as the firewall and be the barrier between the outside world and our resources within the aks cluster, we set up this firewall using network secruity group rules for the resource group which allows a granular way to control the ingress and egress within the cluster
+
+- **Security Group Rules** We have set up two network security group rules for the cluster to control the flow of external traffic and the hosts whioch can access the cluster via ssh
