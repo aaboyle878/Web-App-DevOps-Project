@@ -88,13 +88,15 @@ As part of the cloud set-up for the application it has been containerised and wi
 
 - **Service Principal** This is the account used by the terraform files to authenticate and interact with Azure resources, in short it is a service account for terraform. Please note this is defined as part of the AKS cluster along side the node pool
 
-- **Node Pool** This will define the number of nodes we wish to have within the cluster and where we can set the conditions for auto-scaling and the max and min number of nodes we wish to have running at any given time. For our app we have chosen the `Standard_DS2_v2`` vitrual machine as the host for our application with a default starting count of one. it is also woth mentioning that this is defined as part of the AKS cluster along side the service principal 
+- **Node Pool** This will define the number of nodes we wish to have within the cluster and where we can set the conditions for auto-scaling and the max and min number of nodes we wish to have running at any given time. For our app we have chosen the `Standard_DS2_v2` vitrual machine as the host for our application with a default starting count of one. it is also woth mentioning that this is defined as part of the AKS cluster along side the service principal 
 
 - **AKS(Azure Kubernetes Service) Cluster** This is the kubernetes cluster we will be defining for opur app to run on and is made up of multiple components as mentioned above, potentially the most important factor to define within this block would be the version of kubernetes we wish to run as different versions will function differently and may not support more advanced features.
 
 ### AKS Terraform Resources
 
 In the parent directory for the terrform modular IaC files we have a main.tf as this is in the parent folder it will tie the networking and aks cluster modules together via their outputs and also by providing input paramteres for the variables we have specified in the modules variables.tf files. We will also specify the terraform provider in this main.tf file and in the case of our app as we are using the azure cloud this will in turn mean we are using the Azure provider. We will also specify the service princial credentials that terrafrom will use for our resource provisioning in this section.
+
+- To interact with the cluster we have created using terraform we need to retrieve the kubeconfig file for it which can be done via the following command `az aks get-credentials --resource-group <resource group name> --name <cluster name>`
 
 ## Kubernetes Manifest
 
