@@ -13,8 +13,8 @@ pool:
 steps:
 - task: Docker@2
   inputs:
-    containerRegistry: 'Docker Hub'
-    repository: 'aaron255/web_app'
+    containerRegistry: 'Docker'
+    repository: 'web-app'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
     tags: 'latest'
