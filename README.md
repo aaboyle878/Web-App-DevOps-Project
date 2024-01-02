@@ -138,6 +138,19 @@ To automate the building and pushing of our image from the dockerfile to Dockerh
 
 ### Testing the pipeline 
 
-The testing of the pipeline was done in two phases after each step was added to ensure:
-1. The step worked as expected 
-2. The addition of new steps didnt cause any issues
+The testing of the pipeline was done in two phases after each step was added:
+1. To validate the step worked as expected and tune the parameters if required 
+2. To allow for the investigation of issues should there be an problems with the steps selected
+
+#### Phase 1 
+
+This was the inital set up and trail run of the pipeline building and pushing the image of our app to Docker Hub. In this phase the pipeline was run to ensure the set-up was correct i.e. nothing had be missed and to also verify that the image push could be automated. <br> \
+There were a few issues that were discovered in this inital round of testing 
+1. Azure Cloud subscription not linking to the Azure Devops Org correctly and the runners/build agents not allowing for parallelism. <br> \
+However this was resolved by updating the billing for the project.
+2. The docker image wasnt able to be pushed to the Docker Hub Repo <br> \
+This was resolved by adding the username to the repository field withint he task i.e. `repository: username/app_name`
+
+#### Phase 2 
+This phase introduce the use the of the Kubernetes service connection to apply our manifest/config file and as such followed the approach in the [Checking Deployment](#checking-the-deployment) where we connected to the cluster via the shell and checked everything was running as expect using our `kubectl` command then also checking the deployment on our local machine via port forwarding. <br> \
+An issue that was encourtered during this phase of the deployment was due to the manifest file being localed in the wrong place however this was rectified by moving the yaml file for the child directory into the parent.
