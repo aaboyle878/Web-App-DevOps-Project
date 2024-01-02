@@ -11,8 +11,8 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 - [License](#license)
 - [Cloud Resource Provisioning](#cloud-resource-provisioning)
 - [Kubernetes Manifest](#kubernetes-manifest)
-- [Kubernetes Deployment](#Kubernetes-deployment)
-
+- [Kubernetes Deployment](#kubernetes-deployment)
+- [Azure Pipeline](#azure-pipeline)
 ## Features
 
 - **Order List:** View a comprehensive list of orders including details like date UUID, user ID, card number, store code, product code, product quantity, order date, and shipping date.
@@ -120,3 +120,24 @@ After apllying the manifest file there were a number of cammands used to check t
 - `kubectl get pods --show-labels`- this shows the same as the above with the addition of the labels column 
 - `kubectl get services`- this returns the serive name, type, internal ClusterIP, external/public facing IP, port and protocol mapping, and age
 - `kubectl port-forward <pod-name> 5000:5000`- this command will allow us to connect to the named container via localhost or `127.0.0.1` on port 5000 i.e `127.0.0.1:5000`
+
+## Azure Pipeline
+
+To automate the building and pushing of our image from the dockerfile to Dockerhub and the application of our Kubernetes manifest to the cluster we have built a pipeline with Azure Devops to automate these tasks for us. For the pipeline to be successful it required some set up which comprised of:
+- Creating a new Organisation and project within Azure DevOps <br> 
+- Creating a service connection to github repo for the app <br> 
+ - This is the github repo which will house the source code for our app, along side the Dockerfile, Terraform files and modular structure, the kubernetes cluster application manifest yaml file and ultimately our pipeline .yml file too 
+
+- Creating a service connection for the pipelines to Docker Hub <br>
+ - This will act similarly to a service account in the sense that when the piepline is executed it will all an agent to build the image and push it to docker for us rather than having to manually change the image version with each `docker push`
+- Creating a serivce connection to our Kubernetes cluster hosted on using AKS <br>
+ -In much the same way the docker service connection acts as a service account for docker the same can be said for the Kubernetes service connection as it will allow us to apply any changes in our manifest/config file to the cluster and reduce the erro associated with inexperienced users using `kubectl` commands
+- Creating the azure-pipelines.yml file <br>
+ - This file will house the pipeline trigger, agent pool and associated steps we wish to execute each time the pipeline runs, in our case we have set the trigger to main meaning that anytime there is a change to the main branch of the repo our pipeline shoudl detect the change build the image from scratch push to docker hub and then use the application manifest to deploy the image to the pods within out cluster 
+- Fixing any issues as they arose  
+
+### Testing the pipeline 
+
+The testing of the pipeline was done in two phases after each step was added to ensure:
+1. The step worked as expected 
+2. The addition of new steps didnt cause any issues
