@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: aaron255/web_app:v1
+        image: aaron255/web_app:latest
         ports:
         - containerPort: 5000
   strategy:
