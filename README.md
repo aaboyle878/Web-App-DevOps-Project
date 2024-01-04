@@ -13,6 +13,8 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 - [Kubernetes Manifest](#kubernetes-manifest)
 - [Kubernetes Deployment](#kubernetes-deployment)
 - [Azure Pipeline](#azure-pipeline)
+- [Monitoring](#monitoring)
+
 ## Features
 
 - **Order List:** View a comprehensive list of orders including details like date UUID, user ID, card number, store code, product code, product quantity, order date, and shipping date.
@@ -154,3 +156,12 @@ This was resolved by adding the username to the repository field withint he task
 #### Phase 2 
 This phase introduce the use the of the Kubernetes service connection to apply our manifest/config file and as such followed the approach in the [Checking Deployment](#checking-the-deployment) where we connected to the cluster via the shell and checked everything was running as expect using our `kubectl` command then also checking the deployment on our local machine via port forwarding. <br> \
 An issue that was encourtered during this phase of the deployment was due to the manifest file being localed in the wrong place however this was rectified by moving the yaml file for the child directory into the parent.
+
+## Monitoring 
+
+### Metrics
+
+### Logs
+
+### Alarms
+
