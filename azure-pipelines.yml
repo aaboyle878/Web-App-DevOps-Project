@@ -20,6 +20,8 @@ steps:
 - task: KubernetesManifest@1
   inputs:
     action: 'deploy'
-    connectionType: 'kubernetesServiceConnection'
-    kubernetesServiceConnection: 'Kubernetes'
+    connectionType: 'azureResourceManager'
+    azureSubscriptionConnection: 'Aaron Boyle DevOps(1)(0e34cec9-855a-494c-972a-034cbc92b040)'
+    azureResourceGroup: 'networking-resource-group'
+    kubernetesCluster: 'terraform-aks-cluster'
     manifests: 'application-manifest.yaml'
