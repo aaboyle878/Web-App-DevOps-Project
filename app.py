@@ -15,7 +15,7 @@ app = Flask(__name__)
 key_vault_url = "https://devopskeystore.vault.azure.net/"
 
 #Set Key Vault Client to Use Managed Identity
-credential = ManagedIdentityCredential(client_id="53110714-7c85-473d-87f7-baea5857ad7e")
+credential = ManagedIdentityCredential()
 secret_client = SecretClient(vault_url=key_vault_url, credential=credential)
 
 #Access the secret in Key Vault
