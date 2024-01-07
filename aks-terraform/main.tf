@@ -30,7 +30,7 @@ module "aks_cluster" {
   # Input variables for the AKS cluster module
   aks_cluster_name           = "terraform-aks-cluster"
   cluster_location           = "UK South"
-  dns_prefix                 = "myaks-project"
+  dns_prefix                 = "aarons-project"
   kubernetes_version         = "1.26.6"  
   service_principal_client_id = "ec344146-68dc-4625-9869-bae7cd165838"
   service_principal_client_secret = "ebo8Q~BMVIU_e_VOqiZ3mXWVmNBsTedA6GJAvaO3"
