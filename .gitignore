@@ -3,4 +3,7 @@
 */*.tfstate.*
 
 #terraform lock
+*/.terraform
 */.terraform.*
+*/*/.terraform
+*/*/.terraform.*
