@@ -5,3 +5,6 @@
 #terraform lock
 .terraform
 .terraform.*
+
+#DS_Store 
+.DS_Store
