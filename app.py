@@ -11,7 +11,7 @@ import os
 # Initialise Flask App
 app = Flask(__name__)
 
-# database connection Azure Key Vault
+# Azure Key Vault host 
 key_vault_url = "https://devopskeystore.vault.azure.net/"
 
 #Set Key Vault Client to Use Managed Identity
