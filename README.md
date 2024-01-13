@@ -35,6 +35,8 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 
 - **Data Validation:** Ensure data accuracy and completeness with required fields, date restrictions, and card number validation.
 
+- **Cloud Hosting** Due to potential demand for the application it was deemed best to build infrastruct to allow it to be cloud hosted and more accessable to users globally. The details for the cloud based implementation from the addition and subsequent reversion of the new columns, the creation of the the docker file for the image build, the provisioning of resources using Terraform IaC, the creation and deployment of the Kubernetes manifest, and build instructions for the Azure Pipeline to allow any changes merged intot he main branch to be depoyled right away can all be found within the [technical design wiki](https://github.com/aaboyle878/Web-App-DevOps-Project/wiki) in addition to montioring charts, log queires, alerts and security features.
+
 ## Getting Started
 
 ### Prerequisites
@@ -62,7 +64,7 @@ To run the application, you simply need to run the `app.py` script in this repos
 
 - **Database:** The application employs an Azure SQL Database as its database system to store order-related data.
 
-- **Cloud Provider:** The application will hosted on Azure cloud and make use of the Azure Kuberenetes Service (AKS) 
+- **Cloud Provider:** The application will hosted on Azure cloud and make use of the Azure Kuberenetes Service (AKS)
 
 ## Contributors 
 
