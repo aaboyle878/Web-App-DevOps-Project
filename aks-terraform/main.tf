@@ -57,8 +57,8 @@ module "aks_cluster" {
   cluster_location           = "UK South"
   dns_prefix                 = "aarons-project"
   kubernetes_version         = "1.26.6"  
-  service_principal_client_id = "ec344146-68dc-4625-9869-bae7cd165838"
-  service_principal_client_secret = "ebo8Q~BMVIU_e_VOqiZ3mXWVmNBsTedA6GJAvaO3"
+  service_principal_client_id = data.azurerm_key_vault_secret.client_id.value
+  service_principal_client_secret = data.azurerm_key_vault_secret.client_secret.value
 
   # Input variables referencing outputs from the networking module
   resource_group_name         = module.networking.networking_resource_group_name
