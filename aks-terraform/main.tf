@@ -9,10 +9,35 @@ terraform {
 
 provider "azurerm" {
   features {}
-  client_id       = "ec344146-68dc-4625-9869-bae7cd165838"
-  client_secret   = "ebo8Q~BMVIU_e_VOqiZ3mXWVmNBsTedA6GJAvaO3"
-  subscription_id = "0e34cec9-855a-494c-972a-034cbc92b040"
-  tenant_id       = "47d4542c-f112-47f4-92c7-a838d8a5e8ef"
+  client_id = data.azurerm_key_vault_secret.client_id.value
+  client_secret = data.azurerm_key_vault_secret.client_secret.value
+  subscription_id = data.azurerm_key_vault_secret.sub_id.value
+  tenant_id = data.azurerm_key_vault_secret.tenant_id.value
+}
+
+data "azurerm_key_vault" "existing" {
+  name                = "DevOpsKeyStore"
+  resource_group_name = "networking-resource-group"
+}
+
+data "azurerm_key_vault_secret" "client_id" {
+  name         = "Client-ID"
+  key_vault_id = data.azurerm_key_vault.existing.id
+}
+
+data "azurerm_key_vault_secret" "client_secret" {
+  name         = "Client-Secret"
+  key_vault_id = data.azurerm_key_vault.existing.id
+}
+
+data "azurerm_key_vault_secret" "sub_id" {
+  name         = "Sub-ID"
+  key_vault_id = data.azurerm_key_vault.existing.id
+}
+
+data "azurerm_key_vault_secret" "tenant_id" {
+  name         = "Tenant-ID"
+  key_vault_id = data.azurerm_key_vault.existing.id
 }
 
 module "networking" {
