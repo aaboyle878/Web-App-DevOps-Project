@@ -9,7 +9,7 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 - [Technology Stack](#technology-stack)
 - [Contributors](#contributors)
 - [License](#license)
-- [Technical Design Wiki](https://github.com/aaboyle878/Web-App-DevOps-Project/wiki)
+- [External Technical Design Wiki Links](https://github.com/aaboyle878/Web-App-DevOps-Project/wiki)
   - [Feature: Delivery Date](https://github.com/aaboyle878/Web-App-DevOps-Project/wiki/Delivery-Date)
   - [Docker](https://github.com/aaboyle878/Web-App-DevOps-Project/wiki/Docker)
   - [Cloud Resource Provisioning](https://github.com/aaboyle878/Web-App-DevOps-Project/wiki/Cloud-Resource-Provisioning)
